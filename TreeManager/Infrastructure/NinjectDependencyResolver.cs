@@ -1,9 +1,13 @@
-﻿using Ninject;
+﻿using Moq;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TreeManager.Domain.Abstract;
+using TreeManager.Domain.Concrete;
+using TreeManager.Domain.Entities;
 
 namespace TreeManager.Infrastructure
 {
@@ -27,7 +31,8 @@ namespace TreeManager.Infrastructure
         }
         private void AddBindings()
         {
-            //miejsce na powiazania
+            //miejsce na bindingi
+            kernel.Bind<INodeRepository>().To<EFNodeRepository>();
         }
     }
 }

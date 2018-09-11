@@ -1,0 +1,16 @@
+﻿@using TreeManager.Domain.Entities
+@model IEnumerable<Node>
+
+@{
+    ViewBag.Title = "Tree";
+}
+
+<div>
+    <ul>
+
+        @Html.GenerateTree(Model)
+    </ul>
+    
+</div>
+
+
