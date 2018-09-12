@@ -21,7 +21,7 @@
 
         <!--przycisk do tworzenia korzeni drzewa-->
         <li class="no-bullets">
-            <button type="button" class="btn btn-default btn-xs" 
+            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Add root"
                     onclick="location.href='@Url.Action("AddNode", "Admin")'">
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
@@ -33,37 +33,36 @@
 @helper RecursiveTreeGenerator(Node currentNode)
 {
     <!--zbuduj wezel-->
-    <li class="no-bullets spacefier-child">
-        <div class="node">
+    <li class="no-bullets">
+        <div id="draggable" class="node">
 
             <span class="node-title"><b>@currentNode.Title</b></span>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Delete node">
-                    <span data-toggle="modal" data-target="#deleteModal" class="glyphicon glyphicon-minus"></span>
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-link btn-xs" data-node-id="" data-toggle="tooltip" title="Delete node">
+                    <span data-toggle="modal" data-target="#deleteModal-@currentNode.NodeID" class="glyphicon glyphicon-minus"></span>
                 </button>
 
-                <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Edit node"
+                <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Edit node"
                         onclick="location.href='@Url.Action("EditNode", "Admin", new { id = currentNode.NodeID })'">
                     <span class="glyphicon glyphicon-edit"></span>
                 </button>
 
-                <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Add node"
+                <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Add node"
                         onclick="location.href='@Url.Action("AddNode", "Admin", new { id = currentNode.NodeID })'">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </div>
             <br />
-            <hr style="border-color:gray; margin:2px;" />
-            @currentNode.Description
-
+            <hr style="border-color:gray; margin:5px;" />
+            <p class="node-description">@currentNode.Description</p>
         </div>
     </li>
 
     <!--zbuduj dzieci-->
     if (currentNode.ChildNodes != null)
     {
-        <ul class="no-bullets spacefier-child">
+        <ul class="no-bullets">
             @foreach (var c in currentNode.ChildNodes)
             {
                 @RecursiveTreeGenerator(c)
@@ -72,7 +71,7 @@
     }
 
     <!--modal do usuwania-->
-    <div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal fade" id="deleteModal-@currentNode.NodeID" role="dialog">
         <div class="modal-dialog">
 
             <!--zawartosc modala-->
