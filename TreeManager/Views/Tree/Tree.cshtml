@@ -4,13 +4,96 @@
 @{
     ViewBag.Title = "Tree";
 }
-
 <div>
-    <ul>
-
-        @Html.GenerateTree(Model)
-    </ul>
-    
+    @ViewBag.Error
 </div>
+
+<div class="spacefier">
+    <ul class="no-bullets">
+        @foreach (var n in Model)
+        {
+            if (n.Parent == null)
+            {
+                <!--wywolaj helper dla korzeni drzewa-->
+                @RecursiveTreeGenerator(n)
+            }
+        }
+
+        <!--przycisk do tworzenia korzeni drzewa-->
+        <li class="no-bullets">
+            <button type="button" class="btn btn-default btn-xs" 
+                    onclick="location.href='@Url.Action("AddNode", "Admin")'">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </li>
+    </ul>
+
+</div>
+
+@helper RecursiveTreeGenerator(Node currentNode)
+{
+    <!--zbuduj wezel-->
+    <li class="no-bullets spacefier-child">
+        <div class="node">
+
+            <span class="node-title"><b>@currentNode.Title</b></span>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Delete node">
+                    <span data-toggle="modal" data-target="#deleteModal" class="glyphicon glyphicon-minus"></span>
+                </button>
+
+                <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Edit node"
+                        onclick="location.href='@Url.Action("EditNode", "Admin", new { id = currentNode.NodeID })'">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button>
+
+                <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Add node"
+                        onclick="location.href='@Url.Action("AddNode", "Admin", new { id = currentNode.NodeID })'">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+            <br />
+            <hr style="border-color:gray; margin:2px;" />
+            @currentNode.Description
+
+        </div>
+    </li>
+
+    <!--zbuduj dzieci-->
+    if (currentNode.ChildNodes != null)
+    {
+        <ul class="no-bullets spacefier-child">
+            @foreach (var c in currentNode.ChildNodes)
+            {
+                @RecursiveTreeGenerator(c)
+            }
+        </ul>
+    }
+
+    <!--modal do usuwania-->
+    <div class="modal fade" id="deleteModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!--zawartosc modala-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete node</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to delete a node. Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                            onclick="location.href='@Url.Action("DeleteNode", "Admin", new { id = currentNode.NodeID })'">
+                        Yes
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 

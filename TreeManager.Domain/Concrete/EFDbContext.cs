@@ -15,7 +15,8 @@ namespace TreeManager.Domain.Concrete
         {
             modelBuilder.Entity<Node>()
                 .HasOptional<Node>(n => n.Parent)
-                .WithMany(n => n.ChildNodes);
+                .WithMany(n => n.ChildNodes)
+                .WillCascadeOnDelete(false);
         }
     }
 }

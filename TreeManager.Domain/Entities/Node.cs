@@ -11,6 +11,8 @@ namespace TreeManager.Domain.Entities
     public class Node
     {
         public int NodeID { get; set; }
+        [Required]
+        public string Title { get; set; }
         public string Description { get; set; }
         public virtual Node Parent { get; set; }
         public List<Node> ChildNodes { get; set; }

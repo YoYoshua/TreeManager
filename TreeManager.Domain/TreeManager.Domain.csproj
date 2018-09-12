@@ -93,6 +93,18 @@
     <Compile Include="Migrations\201809110940077_NewSeedData.Designer.cs">
       <DependentUpon>201809110940077_NewSeedData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809111059261_UpdateNodeEntity.cs" />
+    <Compile Include="Migrations\201809111059261_UpdateNodeEntity.Designer.cs">
+      <DependentUpon>201809111059261_UpdateNodeEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809111105152_NewTable.cs" />
+    <Compile Include="Migrations\201809111105152_NewTable.Designer.cs">
+      <DependentUpon>201809111105152_NewTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809121557563_AddRequired.cs" />
+    <Compile Include="Migrations\201809121557563_AddRequired.Designer.cs">
+      <DependentUpon>201809121557563_AddRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +127,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809110940077_NewSeedData.resx">
       <DependentUpon>201809110940077_NewSeedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809111059261_UpdateNodeEntity.resx">
+      <DependentUpon>201809111059261_UpdateNodeEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809111105152_NewTable.resx">
+      <DependentUpon>201809111105152_NewTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809121557563_AddRequired.resx">
+      <DependentUpon>201809121557563_AddRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

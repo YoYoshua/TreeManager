@@ -37,7 +37,7 @@ namespace TreeManager.WebUI.HtmlHelpers
             TagBuilder button = new TagBuilder("button");
 
             button.SetInnerText("-");
-            result.Append(currentNode.NodeID + button.ToString());
+            result.Append(currentNode.Title + button.ToString());
             result = WrapIntoTag(result, tag_li);
 
             //rekursywnie zbuduj dzieci

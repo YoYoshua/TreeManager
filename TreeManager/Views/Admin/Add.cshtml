@@ -1,0 +1,26 @@
+﻿@using TreeManager.Domain.Entities
+@model Node
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<div class="container">
+    <h2>Add a new node</h2>
+    @using (Html.BeginForm("AddNode", "Admin", FormMethod.Post))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(n => n.Parent)
+        <div class="form-group">
+            <label>Title of node:</label>
+            @Html.TextBoxFor(n => n.Title, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            @Html.TextAreaFor(n => n.Description, new { @class = "form-control", @rows = "5" })
+        </div>
+        <button type="submit" class="btn btn-default">Add node</button>
+    }
+</div>
+
+

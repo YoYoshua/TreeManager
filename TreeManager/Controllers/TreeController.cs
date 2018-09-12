@@ -21,9 +21,27 @@ namespace TreeManager.WebUI.Controllers
 
         public ViewResult Tree()
         {
-            HtmlHelper myHelper = null;
-            Debug.WriteLine(myHelper.GenerateTree(repository.Nodes).ToString());
+            //dziwne - bez tego nie wyświetla poprawnie
+            foreach (var n in repository.Nodes)
+            {
+                if (n.ChildNodes != null)
+                {
+                    Debug.WriteLine(n.ChildNodes.ToString());
+                }
+            }
             return View(repository.Nodes);
+        }
+
+        public ViewResult Add()
+        {
+            repository.AddNode(new Node
+            {
+                Title = "TestDodajWęzeł",
+                Description = "Testowy węzeł dodany",
+                Parent = null,
+                ChildNodes = null
+            });
+            return View("Tree", repository.Nodes);
         }
     }
 }

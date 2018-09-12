@@ -19,6 +19,7 @@ namespace TreeManager.Domain.Migrations
             Node node1 = new Node()
             {
                 NodeID = 1,
+                Title = "Wêze³ #1",
                 Description = "Wêze³ testowy #1",
                 Parent = null,
                 ChildNodes = new List<Node>()
@@ -29,6 +30,7 @@ namespace TreeManager.Domain.Migrations
             Node node2 = new Node()
             {
                 NodeID = 2,
+                Title = "Wêze³ #2",
                 Description = "Wêze³ testowy #2",
                 Parent = node1,
                 ChildNodes = new List<Node>()
@@ -40,6 +42,7 @@ namespace TreeManager.Domain.Migrations
             Node node3 = new Node()
             {
                 NodeID = 3,
+                Title = "Wêze³ #3",
                 Description = "Wêze³ testowy #3",
                 Parent = node1,
                 ChildNodes = new List<Node>()
@@ -51,6 +54,7 @@ namespace TreeManager.Domain.Migrations
             Node node4 = new Node()
             {
                 NodeID = 4,
+                Title = "Wêze³ #4",
                 Description = "Wêze³ testowy #4",
                 Parent = null,
                 ChildNodes = new List<Node>()
@@ -61,6 +65,7 @@ namespace TreeManager.Domain.Migrations
             Node node5 = new Node()
             {
                 NodeID = 5,
+                Title = "Wêze³ #5",
                 Description = "Wêze³ testowy #5",
                 Parent = node4,
                 ChildNodes = new List<Node>()
@@ -72,6 +77,7 @@ namespace TreeManager.Domain.Migrations
             Node node6 = new Node()
             {
                 NodeID = 6,
+                Title = "Wêze³ #6",
                 Description = "Wêze³ testowy #6",
                 Parent = node5,
                 ChildNodes = new List<Node>()
