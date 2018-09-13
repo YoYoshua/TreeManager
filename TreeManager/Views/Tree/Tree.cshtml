@@ -1,5 +1,5 @@
 ﻿@using TreeManager.Domain.Entities
-@model IEnumerable<Node>
+@model Dictionary<Node, bool>
 
 @{
     ViewBag.Title = "Tree";
@@ -12,10 +12,10 @@
     <ul class="no-bullets">
         @foreach (var n in Model)
         {
-            if (n.Parent == null)
+            if (n.Key.Parent == null)
             {
                 <!--wywolaj helper dla korzeni drzewa-->
-                @RecursiveTreeGenerator(n)
+                @RecursiveTreeGenerator(n.Key, n.Value)
             }
         }
 
@@ -30,11 +30,27 @@
 
 </div>
 
-@helper RecursiveTreeGenerator(Node currentNode)
+@helper RecursiveTreeGenerator(Node currentNode, bool isExpanded)
 {
     <!--zbuduj wezel-->
     <li class="no-bullets">
-        <div id="draggable" class="node">
+        <div class="node">
+
+            <!--zmien przyciski i akcje w zaleznosci od tego, czy jest rozwiniety-->
+            @if (!isExpanded)
+            {
+                <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Expand node"
+                        onclick="location.href='@Url.Action("ExpandNode", "Tree", new { id = currentNode.NodeID })'">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Collapse node"
+                        onclick="location.href='@Url.Action("CollapseNode", "Tree", new { id = currentNode.NodeID })'">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                </button>
+            }
 
             <span class="node-title"><b>@currentNode.Title</b></span>
 
@@ -60,12 +76,12 @@
     </li>
 
     <!--zbuduj dzieci-->
-    if (currentNode.ChildNodes != null)
+    if (currentNode.ChildNodes != null && isExpanded)
     {
         <ul class="no-bullets">
             @foreach (var c in currentNode.ChildNodes)
             {
-                @RecursiveTreeGenerator(c)
+                @RecursiveTreeGenerator(c, Model[c])
             }
         </ul>
     }

@@ -8,6 +8,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <style>
@@ -57,7 +58,10 @@
                 <a class="navbar-brand" href="#">Tree Manager</a>
             </div>
         </div>
-        <button type="button" class="btn btn-info pull-right login-button">Login</button>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
     </nav>
     <div>
         @RenderBody()
