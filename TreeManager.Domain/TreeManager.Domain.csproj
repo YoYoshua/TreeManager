@@ -141,21 +141,9 @@
     <Compile Include="Migrations\201809121557563_AddRequired.Designer.cs">
       <DependentUpon>201809121557563_AddRequired.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809131945022_SeedChange.cs" />
-    <Compile Include="Migrations\201809131945022_SeedChange.Designer.cs">
-      <DependentUpon>201809131945022_SeedChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809132000160_SeedChange2.cs" />
-    <Compile Include="Migrations\201809132000160_SeedChange2.Designer.cs">
-      <DependentUpon>201809132000160_SeedChange2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809132009231_SeedTest.cs" />
-    <Compile Include="Migrations\201809132009231_SeedTest.Designer.cs">
-      <DependentUpon>201809132009231_SeedTest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809132021359_SeedTest2.cs" />
-    <Compile Include="Migrations\201809132021359_SeedTest2.Designer.cs">
-      <DependentUpon>201809132021359_SeedTest2.cs</DependentUpon>
+    <Compile Include="Migrations\201809132059023_Validation.cs" />
+    <Compile Include="Migrations\201809132059023_Validation.Designer.cs">
+      <DependentUpon>201809132059023_Validation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -189,17 +177,8 @@
     <EmbeddedResource Include="Migrations\201809121557563_AddRequired.resx">
       <DependentUpon>201809121557563_AddRequired.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809131945022_SeedChange.resx">
-      <DependentUpon>201809131945022_SeedChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809132000160_SeedChange2.resx">
-      <DependentUpon>201809132000160_SeedChange2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809132009231_SeedTest.resx">
-      <DependentUpon>201809132009231_SeedTest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809132021359_SeedTest2.resx">
-      <DependentUpon>201809132021359_SeedTest2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809132059023_Validation.resx">
+      <DependentUpon>201809132059023_Validation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

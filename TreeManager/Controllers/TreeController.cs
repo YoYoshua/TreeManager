@@ -40,7 +40,7 @@ namespace TreeManager.WebUI.Controllers
                     expandDict.Add(n, false);
             }
 
-            //jw tylko sortowanie dla wezlow
+            //jw tylko sortowanie dla dzieci wezlow
             foreach(var n in repository.Nodes)
             {
                 if (NodeIDsToSort.Any(m => m == n.NodeID))

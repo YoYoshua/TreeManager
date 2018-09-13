@@ -10,6 +10,7 @@ namespace TreeManager.WebUI.HtmlHelpers
 {
     public static class IdentityHelpers
     {
+        //helper zwracajacy nazwe uzytkownika
         public static MvcHtmlString GetUserName(this HtmlHelper html, string id)
         {
             AppUserManager mgr

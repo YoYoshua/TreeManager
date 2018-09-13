@@ -10,6 +10,7 @@ using TreeManager.Domain.Entities;
 
 namespace TreeManager.WebUI.Controllers
 {
+    [AccessDeniedAuthorize(Roles = "Admin")]
     public class NodeAdminController : Controller
     {
         private INodeRepository repository;
@@ -19,7 +20,6 @@ namespace TreeManager.WebUI.Controllers
             this.repository = paramRepo;
         }
 
-        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult AddNode()
         {
             return View("Add");
@@ -47,7 +47,6 @@ namespace TreeManager.WebUI.Controllers
             return View("Add", formData);
         }
 
-        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult EditNode(int id)
         {
             Node tempNode = repository.GetNodeByID(id);
@@ -56,7 +55,6 @@ namespace TreeManager.WebUI.Controllers
         }
 
         [HttpPost]
-        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult EditNode(int id, Node formData)
         {
             if (ModelState.IsValid)
@@ -74,7 +72,6 @@ namespace TreeManager.WebUI.Controllers
             return View("Edit", formData);
         }
 
-        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult DeleteNode(int id)
         {
             Node targetNode = repository.GetNodeByID(id);
@@ -90,8 +87,9 @@ namespace TreeManager.WebUI.Controllers
             return RedirectToAction("Tree", "Tree");
         }
 
+        //funkcja odpowiedzialna za przyjecie JSONa wyslanego przez funkcje AJAXa w
+        //widoku i przetworzenie jej na wartosci identyfikatorow wezlow
         [HttpPost]
-        [AccessDeniedAuthorize(Roles = "Admin")]
         public void SwapNode(string o)
         {
             var saveObject = Newtonsoft.Json.JsonConvert.DeserializeObject<SwapNodeModel>(o);
@@ -99,6 +97,7 @@ namespace TreeManager.WebUI.Controllers
                 repository.GetNodeByID(saveObject.Element2));
         }
 
+        //model na ktory jest deserializowany JSON w funkcji SwapNode
         private class SwapNodeModel
         {
             public int Element1 { get; set; }

@@ -166,7 +166,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\NodeAdminController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -174,7 +173,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\IdentityHelpers.cs" />
-    <Compile Include="HtmlHelpers\TreeHelper.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\UserVIewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

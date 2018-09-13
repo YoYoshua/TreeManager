@@ -3,7 +3,7 @@ namespace TreeManager.Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class SeedChange2 : DbMigration
+    public partial class Validation : DbMigration
     {
         public override void Up()
         {

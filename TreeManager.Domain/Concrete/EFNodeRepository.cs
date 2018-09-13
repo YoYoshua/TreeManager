@@ -68,10 +68,8 @@ namespace TreeManager.Domain.Concrete
                 throw new ArgumentNullException();
             }
 
-            //przygotuj chwilowy wezel oraz liste dzieci pierwszego i drugiego wezla
+            //przygotuj chwilowy wezel
             Node tempNode = new Node();
-            List<Node> children1 = GetChildNodes(node1).ToList<Node>();
-            List<Node> children2 = GetChildNodes(node2).ToList<Node>();
 
             //przepisz dane wezla pierwszego do wezla tymczasowego
             tempNode.Title = node1.Title;

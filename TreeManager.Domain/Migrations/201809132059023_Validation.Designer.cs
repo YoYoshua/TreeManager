@@ -7,13 +7,13 @@ namespace TreeManager.Domain.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class SeedTest2 : IMigrationMetadata
+    public sealed partial class Validation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedTest2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Validation));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809132021359_SeedTest2"; }
+            get { return "201809132059023_Validation"; }
         }
         
         string IMigrationMetadata.Source

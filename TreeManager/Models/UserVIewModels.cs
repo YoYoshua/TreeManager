@@ -7,6 +7,7 @@ using TreeManager.Domain.Entities;
 
 namespace TreeManager.WebUI.Models
 {
+    //modele wykorzystywane w widokach
     public class CreateUserModel
     {
         [Required]
