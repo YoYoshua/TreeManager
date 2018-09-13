@@ -14,7 +14,8 @@ namespace TreeManager.WebUI.Controllers
     {
         //przygotowanie listy zawierajacej elementy do wyswietlenia
         private static List<int> NodeIDsToExpand = new List<int>();
-        private static bool Sort = false;
+        private static List<int> NodeIDsToSort = new List<int>();
+        private static bool SortRoot = false;
 
         private INodeRepository repository;
 
@@ -26,31 +27,33 @@ namespace TreeManager.WebUI.Controllers
         public ViewResult Tree()
         {
             //slownik zawierajacy informacje o rozwinieciu i zwinieciu wezla
-            Dictionary<Node, bool> expand = new Dictionary<Node, bool>();
+            Dictionary<Node, bool> expandDict = new Dictionary<Node, bool>();
+            Dictionary<Node, bool> sortDict = new Dictionary<Node, bool>();
 
             //skojarzenie ze soba wartosci bool i List w celu wyswietlenia
             //druga czesc sortuje badz nie w zaleznosci od wlasciwosci parametru Sort
-            foreach(var n in Sort ? repository.Nodes.OrderBy(m => m.Title) : repository.Nodes)
+            foreach(var n in SortRoot ? repository.Nodes.OrderBy(m => m.Title) : repository.Nodes)
             {
                 if (NodeIDsToExpand.Any(m => m == n.NodeID))
-                    expand.Add(n, true);
+                    expandDict.Add(n, true);
                 else
-                    expand.Add(n, false);
+                    expandDict.Add(n, false);
             }
 
-            //dziwne - bez tego nie wyświetla poprawnie
-            //foreach (var n in repository.Nodes)
-            //{
-            //    if (n.ChildNodes != null)
-            //    {
-            //        Debug.WriteLine(n.ChildNodes.ToString());
-            //    }
-            //}
+            //jw tylko sortowanie dla wezlow
+            foreach(var n in repository.Nodes)
+            {
+                if (NodeIDsToSort.Any(m => m == n.NodeID))
+                    sortDict.Add(n, true);
+                else
+                    sortDict.Add(n, false);
+            }
 
             //zapisz wartosc parametru sort w zmiennej sesyjnej (do wyswietlania)
-            Session["Sort"] = Sort;
+            Session["Sort"] = SortRoot;
+            Session["SortDict"] = sortDict;
 
-            return View(expand);
+            return View(expandDict);
         }
 
         public ActionResult ExpandNode(int id)
@@ -79,7 +82,17 @@ namespace TreeManager.WebUI.Controllers
 
         public ActionResult SortNodes()
         {
-            Sort = !Sort;
+            SortRoot = !SortRoot;
+            return RedirectToAction("Tree");
+        }
+
+        public ActionResult SortNode(int id)
+        {
+            if (NodeIDsToSort.Any(m => m == id))
+                NodeIDsToSort.Remove(id);
+            else
+                NodeIDsToSort.Add(id);
+
             return RedirectToAction("Tree");
         }
     }

@@ -29,14 +29,14 @@
             <!--wyswietl ikonke w zaleznosci od sortowania-->
             @if ((bool)Session["Sort"])
             {
-                <button type="button" class="btn btn-link" data-toggle="tooltip" title="Sort roots"
+                <button type="button" class="btn btn-link active" data-toggle="tooltip" title="Sort roots"
                         onclick="location.href='@Url.Action("SortNodes", "Tree")'">
                     <span class="glyphicon glyphicon-sort-by-alphabet"></span>
                 </button>
             }
             else
             {
-                <button type="button" class="btn btn-link active" data-toggle="tooltip" title="Sort roots"
+                <button type="button" class="btn btn-link" data-toggle="tooltip" title="Sort roots"
                         onclick="location.href='@Url.Action("SortNodes", "Tree")'">
                     <span class="glyphicon glyphicon-sort-by-alphabet"></span>
                 </button>
@@ -75,6 +75,22 @@
                     <span data-toggle="modal" data-target="#deleteModal-@currentNode.NodeID" class="glyphicon glyphicon-minus"></span>
                 </button>
 
+                <!--przycisk sortowania zalezny od jego stanu-->
+                @if (((Dictionary<Node, bool>)Session["SortDict"])[currentNode])
+                {
+                    <button type="button" class="btn btn-link btn-xs active" data-toggle="tooltip" title="Edit node"
+                            onclick="location.href='@Url.Action("SortNode", "Tree", new { id = currentNode.NodeID })'">
+                        <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Edit node"
+                            onclick="location.href='@Url.Action("SortNode", "Tree", new { id = currentNode.NodeID })'">
+                        <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    </button>
+                }
+
                 <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Edit node"
                         onclick="location.href='@Url.Action("EditNode", "NodeAdmin", new { id = currentNode.NodeID })'">
                     <span class="glyphicon glyphicon-edit"></span>
@@ -97,12 +113,25 @@
     <!--zbuduj dzieci-->
     if (currentNode.ChildNodes != null && isExpanded)
     {
-        <ul class="no-bullets">
-            @foreach (var c in currentNode.ChildNodes)
-            {
-                @RecursiveTreeGenerator(c, Model[c])
-            }
-        </ul>
+        <!--sprawdz czy nalezy posortowac-->
+        if (((Dictionary<Node, bool>)Session["SortDict"])[currentNode])
+        {
+            <ul class="no-bullets">
+                @foreach (var c in currentNode.ChildNodes.OrderBy(x => x.Title))
+                {
+                    @RecursiveTreeGenerator(c, Model[c])
+                }
+            </ul>
+        }
+        else
+        {
+            <ul class="no-bullets">
+                @foreach (var c in currentNode.ChildNodes)
+                {
+                    @RecursiveTreeGenerator(c, Model[c])
+                }
+            </ul>
+        }
     }
 
     <!--modal do usuwania-->
