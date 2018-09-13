@@ -21,10 +21,26 @@
 
         <!--przycisk do tworzenia korzeni drzewa-->
         <li class="no-bullets">
-            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Add root"
-                    onclick="location.href='@Url.Action("AddNode", "Admin")'">
+            <button type="button" class="btn btn-link" data-toggle="tooltip" title="Add root"
+                    onclick="location.href='@Url.Action("AddNode", "NodeAdmin")'">
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
+
+            <!--wyswietl ikonke w zaleznosci od sortowania-->
+            @if ((bool)Session["Sort"])
+            {
+                <button type="button" class="btn btn-link" data-toggle="tooltip" title="Sort roots"
+                        onclick="location.href='@Url.Action("SortNodes", "Tree")'">
+                    <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-link active" data-toggle="tooltip" title="Sort roots"
+                        onclick="location.href='@Url.Action("SortNodes", "Tree")'">
+                    <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                </button>
+            }
         </li>
     </ul>
 
@@ -33,7 +49,7 @@
 @helper RecursiveTreeGenerator(Node currentNode, bool isExpanded)
 {
     <!--zbuduj wezel-->
-    <li class="no-bullets">
+    <li class="no-bullets draggable droppable" id="@currentNode.NodeID">
         <div class="node">
 
             <!--zmien przyciski i akcje w zaleznosci od tego, czy jest rozwiniety-->
@@ -60,18 +76,21 @@
                 </button>
 
                 <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Edit node"
-                        onclick="location.href='@Url.Action("EditNode", "Admin", new { id = currentNode.NodeID })'">
+                        onclick="location.href='@Url.Action("EditNode", "NodeAdmin", new { id = currentNode.NodeID })'">
                     <span class="glyphicon glyphicon-edit"></span>
                 </button>
 
                 <button type="button" class="btn btn-link btn-xs" data-toggle="tooltip" title="Add node"
-                        onclick="location.href='@Url.Action("AddNode", "Admin", new { id = currentNode.NodeID })'">
+                        onclick="location.href='@Url.Action("AddNode", "NodeAdmin", new { id = currentNode.NodeID })'">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </div>
             <br />
-            <hr style="border-color:gray; margin:5px;" />
-            <p class="node-description">@currentNode.Description</p>
+            @if (!currentNode.Description.IsEmpty())
+            {
+                <hr style="border-color:gray; margin:5px;" />
+                <p class="node-description">@currentNode.Description</p>
+            }
         </div>
     </li>
 
@@ -101,7 +120,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
-                            onclick="location.href='@Url.Action("DeleteNode", "Admin", new { id = currentNode.NodeID })'">
+                            onclick="location.href='@Url.Action("DeleteNode", "NodeAdmin", new { id = currentNode.NodeID })'">
                         Yes
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>

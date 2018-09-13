@@ -61,6 +61,34 @@ namespace TreeManager.Domain.Concrete
             context.SaveChanges();
         }
 
+        public void SwapNode(Node node1, Node node2)
+        {
+            if(node1 == null || node2 == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            //przygotuj chwilowy wezel oraz liste dzieci pierwszego i drugiego wezla
+            Node tempNode = new Node();
+            List<Node> children1 = GetChildNodes(node1).ToList<Node>();
+            List<Node> children2 = GetChildNodes(node2).ToList<Node>();
+
+            //przepisz dane wezla pierwszego do wezla tymczasowego
+            tempNode.Title = node1.Title;
+            tempNode.Description = node1.Description;
+
+            //przepisz dane z wezla drugiego do pierwszego
+            node1.Title = node2.Title;
+            node1.Description = node2.Description;
+
+            //przepisz dane z wezla tymczasowego do drugiego
+            node2.Title = tempNode.Title;
+            node2.Description = tempNode.Description;
+
+            //zapisz zmiany
+            context.SaveChanges();
+        }
+
         public void DeleteNode(Node paramNode)
         {
             if (paramNode == null)

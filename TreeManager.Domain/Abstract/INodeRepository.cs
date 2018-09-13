@@ -16,5 +16,6 @@ namespace TreeManager.Domain.Abstract
         void AddNode(Node paramNode, Node parentNode);
         void UpdateNode(Node paramNode);
         void DeleteNode(Node paramNode);
+        void SwapNode(Node node1, Node node2);
     }
 }

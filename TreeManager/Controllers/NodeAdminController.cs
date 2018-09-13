@@ -5,18 +5,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TreeManager.Domain.Abstract;
+using TreeManager.Domain.Concrete;
 using TreeManager.Domain.Entities;
 
 namespace TreeManager.WebUI.Controllers
 {
-    public class AdminController : Controller
+    public class NodeAdminController : Controller
     {
         private INodeRepository repository;
 
-        public AdminController(INodeRepository paramRepo)
+        public NodeAdminController(INodeRepository paramRepo)
         {
             this.repository = paramRepo;
         }
+
+        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult AddNode()
         {
             return View("Add");
@@ -44,6 +47,7 @@ namespace TreeManager.WebUI.Controllers
             return View("Add", formData);
         }
 
+        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult EditNode(int id)
         {
             Node tempNode = repository.GetNodeByID(id);
@@ -52,6 +56,7 @@ namespace TreeManager.WebUI.Controllers
         }
 
         [HttpPost]
+        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult EditNode(int id, Node formData)
         {
             if (ModelState.IsValid)
@@ -69,6 +74,7 @@ namespace TreeManager.WebUI.Controllers
             return View("Edit", formData);
         }
 
+        [AccessDeniedAuthorize(Roles = "Admin")]
         public ActionResult DeleteNode(int id)
         {
             Node targetNode = repository.GetNodeByID(id);
@@ -82,6 +88,21 @@ namespace TreeManager.WebUI.Controllers
             }
 
             return RedirectToAction("Tree", "Tree");
+        }
+
+        [HttpPost]
+        [AccessDeniedAuthorize(Roles = "Admin")]
+        public void SwapNode(string o)
+        {
+            var saveObject = Newtonsoft.Json.JsonConvert.DeserializeObject<SwapNodeModel>(o);
+            repository.SwapNode(repository.GetNodeByID(saveObject.Element1), 
+                repository.GetNodeByID(saveObject.Element2));
+        }
+
+        private class SwapNodeModel
+        {
+            public int Element1 { get; set; }
+            public int Element2 { get; set; }
         }
     }
 }

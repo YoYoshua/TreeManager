@@ -14,6 +14,7 @@ namespace TreeManager.WebUI.Controllers
     {
         //przygotowanie listy zawierajacej elementy do wyswietlenia
         private static List<int> NodeIDsToExpand = new List<int>();
+        private static bool Sort = false;
 
         private INodeRepository repository;
 
@@ -28,23 +29,26 @@ namespace TreeManager.WebUI.Controllers
             Dictionary<Node, bool> expand = new Dictionary<Node, bool>();
 
             //skojarzenie ze soba wartosci bool i List w celu wyswietlenia
-            foreach(var n in repository.Nodes)
+            //druga czesc sortuje badz nie w zaleznosci od wlasciwosci parametru Sort
+            foreach(var n in Sort ? repository.Nodes.OrderBy(m => m.Title) : repository.Nodes)
             {
                 if (NodeIDsToExpand.Any(m => m == n.NodeID))
                     expand.Add(n, true);
                 else
                     expand.Add(n, false);
-
             }
 
             //dziwne - bez tego nie wyświetla poprawnie
-            foreach (var n in repository.Nodes)
-            {
-                if (n.ChildNodes != null)
-                {
-                    Debug.WriteLine(n.ChildNodes.ToString());
-                }
-            }
+            //foreach (var n in repository.Nodes)
+            //{
+            //    if (n.ChildNodes != null)
+            //    {
+            //        Debug.WriteLine(n.ChildNodes.ToString());
+            //    }
+            //}
+
+            //zapisz wartosc parametru sort w zmiennej sesyjnej (do wyswietlania)
+            Session["Sort"] = Sort;
 
             return View(expand);
         }
@@ -73,16 +77,10 @@ namespace TreeManager.WebUI.Controllers
             }
         }
 
-        public ViewResult Add()
+        public ActionResult SortNodes()
         {
-            repository.AddNode(new Node
-            {
-                Title = "TestDodajWęzeł",
-                Description = "Testowy węzeł dodany",
-                Parent = null,
-                ChildNodes = null
-            });
-            return View("Tree", repository.Nodes);
+            Sort = !Sort;
+            return RedirectToAction("Tree");
         }
     }
 }

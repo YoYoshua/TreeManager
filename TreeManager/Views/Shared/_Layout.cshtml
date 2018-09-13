@@ -52,15 +52,24 @@
     </style>
 </head>
 <body>
+    <!--pasek nawigacji-->
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Tree Manager</a>
+                <a class="navbar-brand" href="@Url.Action("Tree", "Tree")">Tree Manager</a>
             </div>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><span class="navbar-brand">Hello, @User.Identity.Name!</span></li>
+                <li><a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Create", "Users")"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="@Url.Action("Login", "Account")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            }
         </ul>
     </nav>
     <div>
@@ -68,9 +77,41 @@
     </div>
 
     <script>
+        //skrypt dla tooltipa
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        //skrypt dla przeciagania elementow
+        $(".draggable").draggable({
+            revert: true,
+            zIndex: 9000
+        });
+
+        $(".droppable").droppable({
+            drop: function (event, ui) {
+                var objectData = {
+                    element1: $(this).attr('id'),
+                    element2: $(ui.draggable).attr('id')
+                };
+
+                var objectDataString = JSON.stringify(objectData);
+
+                $.ajax({
+                    type: "POST",
+                    url: "NodeAdmin/SwapNode",
+                    data: {
+                        o: objectDataString
+                    },
+                    success: function () {
+                        location.reload()
+                    },
+                    error: function (errorThrown) {
+                        console.log(errorThrown)
+                    }
+                });
+            }
+            });
     </script>
 </body>
 </html>
