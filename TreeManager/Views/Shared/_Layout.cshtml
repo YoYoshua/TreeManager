@@ -60,6 +60,7 @@
             </div>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <!--zmiana zawartosci paska w zaleznosci od zalogowania-->
             @if (User.Identity.IsAuthenticated)
             {
                 <li><span class="navbar-brand">Hello, @User.Identity.Name!</span></li>

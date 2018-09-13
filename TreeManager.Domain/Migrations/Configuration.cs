@@ -1,90 +1,52 @@
 namespace TreeManager.Domain.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using TreeManager.Domain.Concrete;
     using TreeManager.Domain.Entities;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TreeManager.Domain.Concrete.EFDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<TreeManager.Domain.Concrete.AppIdentityDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(TreeManager.Domain.Concrete.EFDbContext context)
+        protected override void Seed(AppIdentityDbContext context)
         {
-            Node node1 = new Node()
-            {
-                NodeID = 1,
-                Title = "Wêze³ #1",
-                Description = "Wêze³ testowy #1",
-                Parent = null,
-                ChildNodes = new List<Node>()
-            };
-            context.Nodes.AddOrUpdate(node1);
-            context.SaveChanges();
+            //seed admin
+            AppUserManager userMgr = new AppUserManager(new UserStore<User>(context));
+            AppRoleManager roleMgr = new AppRoleManager(new RoleStore<Role>(context));
 
-            Node node2 = new Node()
-            {
-                NodeID = 2,
-                Title = "Wêze³ #2",
-                Description = "Wêze³ testowy #2",
-                Parent = node1,
-                ChildNodes = new List<Node>()
-            };
-            context.Nodes.AddOrUpdate(node2);
-            node1.ChildNodes.Add(node2);
-            context.SaveChanges();
+            string roleName = "Admin";
 
-            Node node3 = new Node()
-            {
-                NodeID = 3,
-                Title = "Wêze³ #3",
-                Description = "Wêze³ testowy #3",
-                Parent = node1,
-                ChildNodes = new List<Node>()
-            };
-            context.Nodes.AddOrUpdate(node3);
-            node1.ChildNodes.Add(node3);
-            context.SaveChanges();
+            string userName = "Admin";
+            string password = "AdminTest";
+            string email = "admin@admin.com";
 
-            Node node4 = new Node()
+            if (!roleMgr.RoleExists(roleName))
             {
-                NodeID = 4,
-                Title = "Wêze³ #4",
-                Description = "Wêze³ testowy #4",
-                Parent = null,
-                ChildNodes = new List<Node>()
-            };
-            context.Nodes.AddOrUpdate(node4);
-            context.SaveChanges();
+                roleMgr.Create(new Role(roleName));
+            }
 
-            Node node5 = new Node()
+            User user = userMgr.FindByName(userName);
+            if (user == null)
             {
-                NodeID = 5,
-                Title = "Wêze³ #5",
-                Description = "Wêze³ testowy #5",
-                Parent = node4,
-                ChildNodes = new List<Node>()
-            };
-            context.Nodes.AddOrUpdate(node5);
-            node4.ChildNodes.Add(node5);
-            context.SaveChanges();
+                userMgr.Create(new User { UserName = userName, Email = email }, password);
+                user = userMgr.FindByName(userName);
+            }
 
-            Node node6 = new Node()
+            if(!userMgr.IsInRole(user.Id, roleName))
             {
-                NodeID = 6,
-                Title = "Wêze³ #6",
-                Description = "Wêze³ testowy #6",
-                Parent = node5,
-                ChildNodes = new List<Node>()
-            };
-            context.Nodes.AddOrUpdate(node6);
-            node5.ChildNodes.Add(node6);
-            context.SaveChanges();
+                userMgr.AddToRole(user.Id, roleName);
+            }
+
+            base.Seed(context);
         }
     }
 }
