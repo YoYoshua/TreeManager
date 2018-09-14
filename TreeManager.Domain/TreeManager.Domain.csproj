@@ -109,77 +109,12 @@
     <Compile Include="Entities\Node.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201809101737444_InitialMigration.cs" />
-    <Compile Include="Migrations\201809101737444_InitialMigration.Designer.cs">
-      <DependentUpon>201809101737444_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809101838071_AddForeignKey.cs" />
-    <Compile Include="Migrations\201809101838071_AddForeignKey.Designer.cs">
-      <DependentUpon>201809101838071_AddForeignKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809110714478_SeedData.cs" />
-    <Compile Include="Migrations\201809110714478_SeedData.Designer.cs">
-      <DependentUpon>201809110714478_SeedData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809110811486_ModelEdit.cs" />
-    <Compile Include="Migrations\201809110811486_ModelEdit.Designer.cs">
-      <DependentUpon>201809110811486_ModelEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809110940077_NewSeedData.cs" />
-    <Compile Include="Migrations\201809110940077_NewSeedData.Designer.cs">
-      <DependentUpon>201809110940077_NewSeedData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809111059261_UpdateNodeEntity.cs" />
-    <Compile Include="Migrations\201809111059261_UpdateNodeEntity.Designer.cs">
-      <DependentUpon>201809111059261_UpdateNodeEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809111105152_NewTable.cs" />
-    <Compile Include="Migrations\201809111105152_NewTable.Designer.cs">
-      <DependentUpon>201809111105152_NewTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809121557563_AddRequired.cs" />
-    <Compile Include="Migrations\201809121557563_AddRequired.Designer.cs">
-      <DependentUpon>201809121557563_AddRequired.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809132059023_Validation.cs" />
-    <Compile Include="Migrations\201809132059023_Validation.Designer.cs">
-      <DependentUpon>201809132059023_Validation.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809101737444_InitialMigration.resx">
-      <DependentUpon>201809101737444_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809101838071_AddForeignKey.resx">
-      <DependentUpon>201809101838071_AddForeignKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809110714478_SeedData.resx">
-      <DependentUpon>201809110714478_SeedData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809110811486_ModelEdit.resx">
-      <DependentUpon>201809110811486_ModelEdit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809110940077_NewSeedData.resx">
-      <DependentUpon>201809110940077_NewSeedData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809111059261_UpdateNodeEntity.resx">
-      <DependentUpon>201809111059261_UpdateNodeEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809111105152_NewTable.resx">
-      <DependentUpon>201809111105152_NewTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809121557563_AddRequired.resx">
-      <DependentUpon>201809121557563_AddRequired.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809132059023_Validation.resx">
-      <DependentUpon>201809132059023_Validation.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
